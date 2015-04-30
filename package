@@ -1,0 +1,9 @@
+
+{
+  "name": "mesa",
+  "version": "0.0.0",
+  "license": "GPL",
+  "dependencies": {
+    "json-server": "^0.7.2"
+  }
+}
