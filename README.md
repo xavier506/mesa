@@ -1,4 +1,5 @@
-![Mesa Costa Rica Logo](./docs/mesa-logo-thumb.png)   # mesa.cr
+![Mesa Costa Rica Logo](./docs/mesa-logo-thumb.png)
+#mesa.cr
 
 Restaurants guide of Costa Rica
 
