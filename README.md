@@ -5,7 +5,7 @@ live demo URL: http://www.mesa.cr
 
 ##Project Description
 
-Mesa is a A single page APP developed to keep track of restaurants.
+Mesa is a single page APP developed to keep track of restaurants.
 
 
 ## Wireframes

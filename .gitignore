@@ -1,0 +1,19 @@
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+node_modules/
+bower_components/
+
+# Logs and databases #
+######################
+mesa_db.json
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
