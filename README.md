@@ -11,6 +11,7 @@ Mesa is a single page APP developed to keep track of restaurants.
 
 
 ## Wireframes
+![Mesa Layout Wireframe ](./docs/mesa-layout.png)
 * As a user be able to create, read, update, and delete categories.
 * As a user be able to create, read, update, and delete restaurants.
 * As a user  be able to create, read, update, and delete menu items.
