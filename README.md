@@ -17,6 +17,7 @@ Mesa is a single page APP developed to keep track of restaurants.
 * As a user be able to organize items by their restaurant (so an item should only belong to one menu).
 
 ## Database ERD
+![Mesa Entity Relationship Diagram](./docs/mesa-ERD.png)
 ## APIs or libraries
 ## Project dependencies
 APIs and libraries.
@@ -29,7 +30,7 @@ version 0.7.2
 
 
 ### Frontend
-makes the  app to "shine" visually.
+makes the  app "shine" visually.
 
 ####Mustache
 https://mustache.github.io/
