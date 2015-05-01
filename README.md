@@ -3,7 +3,7 @@
 
 Restaurants guide of Costa Rica
 
-live demo URL: http://www.mesa.cr
+live demo URL: http://xavierf.software:3000
 
 ##Project Description
 
@@ -31,7 +31,8 @@ version 0.7.2
 ### Frontend
 makes the  app to "shine" visually.
 
-####Mustache https://mustache.github.io/
+####Mustache
+https://mustache.github.io/
 version 2.0.0
 
 
