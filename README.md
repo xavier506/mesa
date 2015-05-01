@@ -1,4 +1,7 @@
-# mesa.cr  ![Mesa Costa Rica Logo](./docs/mesa-logo-thumb.png)
+![Mesa Costa Rica Logo](./docs/mesa-logo-thumb.png)   # mesa.cr
+
+Restaurants guide of Costa Rica
+
 live demo URL: http://www.mesa.cr
 
 ##Project Description
