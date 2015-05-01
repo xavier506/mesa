@@ -8,6 +8,10 @@ bower_components/
 ######################
 mesa_db.json
 
+# Configuration files #
+######################
+config.js
+
 # OS generated files #
 ######################
 .DS_Store
