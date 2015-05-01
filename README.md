@@ -1,5 +1,5 @@
-# mesa.cr
-![Mesa Costa Rica Logo](./docs/mesa-logo-sm.png){ float: right; }
+
+|  # mesa.cr  | ![Mesa Costa Rica Logo](./docs/mesa-logo-sm.png) |
 
 live demo URL: http://www.mesa.cr
 
