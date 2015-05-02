@@ -1,6 +1,25 @@
 console.log('linked');
 
 ///////////////////////
+/// Director Routes //
+/////////////////////  
+var about = function (){
+    var $content = $('#content-container');
+    $content.empty();
+
+    var $html = $("<h1>About Mesa</h1><h3> This is a website that contains information on restaurants in Costa Rica</h3><p>It is also a way to practice building one page web apps using jQuery. For example, this page was made using flatiron director.</p>");
+
+    $content.append($html);
+};
+
+var routes = {
+    "/about": about
+}
+
+var router = Router(routes);
+router.init();    
+
+///////////////////////
 /// CRUD Restaurants//
 /////////////////////  
 var template = $('script[data-id="template"]').text();
@@ -37,8 +56,9 @@ $.ajax({
 
     $('tbody').append(restaurantsEls);
 
-    $('.ui.rating')
-        .rating();
+    $('.ui.rating').rating();
+
+    $('.tabular.menu .item').tab();
 
 });
 
@@ -105,7 +125,6 @@ $('tbody').on('click', '[data-attr="rating"]', function(e) {
             });
         });
 });
-
 
 function getImageURL(id) {
     var image_url_input = prompt("Please enter the image URL for this restaurant");
