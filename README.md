@@ -47,6 +47,11 @@ Makes the application responsive so that it is viewable on a mobile phone.
 http://jquery.com/
 version 1.8
 
+#### Flatiron Director
+https://github.com/flatiron/director
+Client side routing
+
+
 ####Underscore JS
 http://underscorejs.org/
 Use Underscore.js for complex iteration and enumeration.
@@ -67,3 +72,7 @@ http://www.chartjs.org/
 Use Chart.js to show a graph of your top 10 restaurants and their ratings.
 
 ## Instructions for downloading the code and running it
+
+create a symbolic link to bower components within the public folder
+
+`ln -s ../bower_components/ bower_components`

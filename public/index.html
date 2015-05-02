@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Mesa - Restaurants Guide for Costa Rica</title>
+      <link rel="stylesheet" type="text/css" href="/bower_components/semantic-ui/dist/semantic.css">
+   </head>
+   <body>
+      <div class="ui padded grid">
+      <div class="sixteen wide row">
+         <div class="two wide column">
+         </div>
+         <div class="two wide column">
+            <img src="/images/logos/mesa-logo-thumb.png" />
+         </div>
+         <div class="twelve wide column">
+            <h1 class="ui header">mesa.cr</h1>
+            <p>A restaurants guide for Costa Rica</p>
+         </div>
+         <div class="two wide column">
+         </div>
+      </div>
+      <div class="sixteen wide black row">
+         <div class="two wide column">
+         </div>
+         <div class="twelve wide column" >
+            <div class="twelve wide row" >
+               <h2 class="ui header inverted">view restaurants</h2>
+            </div>
+            <div class="twelve wide gray row">
+               <a class="ui label blue">
+               <i class="plus icon"></i> Add new restaurant
+               </a>
+               <table class="ui table celled striped">
+                  <thead>
+                     <th>Name</th>
+                     <th>Description</th>
+                     <th>Location</th>
+                     <th>Category</th>
+                     <th>Image</th>
+                     <th>Rating</th>
+                     <th>Delete</th>
+                  </thead>
+                  <tbody>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="two wide column">
+         </div>
+      </div>
+      <script type="text/template" data-id="template">
+         <tr data-id='{{id}}'>
+           <td data-attr='name' contenteditable='true' >
+             {{name}}
+           </td>
+           <td>
+             <span data-attr='description' contenteditable='true'>{{description}}</span>
+           </td>
+           <td>
+             <span data-attr='location' contenteditable='true'>{{location}}</span>
+           </td>
+           <td>
+             <span data-attr='category' contenteditable='true'>{{category}}</span>
+           </td>
+           <td>
+             <img class="ui small rounded image" src="{{image_url}}" alt="{{name}}" onclick="getImageURL({{id}})" />
+           </td>
+           <td>
+             <div data-attr='rating' class="ui rating" data-rating="{{rating}}"></div>
+             <span data-attr='rating_count'><br/>rated {{rating_count}} times</span>
+           </td>
+           <td>
+             <i data-action="delete" class="trash icon"></i>
+           </td>
+         </tr>
+      </script>
+      <script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
+      <script type="text/javascript" src="./bower_components/mustache/mustache.min.js"></script>
+      <script type="text/javascript" src="./bower_components/semantic-ui/dist/semantic.min.js"></script>
+      <script type="text/javascript" src="./main.js"></script>
+   </body>
+</html>
