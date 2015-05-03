@@ -1,24 +1,4 @@
-console.log('linked');
-
-///////////////////////
-/// Director Routes //
-/////////////////////  
-var about = function (){
-    var $content = $('#content-container');
-    $content.empty();
-
-    var $html = $("<h1>About Mesa</h1><h3> This is a website that contains information on restaurants in Costa Rica</h3><p>It is also a way to practice building one page web apps using jQuery. For example, this page was made using flatiron director.</p>");
-
-    $content.append($html);
-};
-
-var routes = {
-    "/about": about
-};
-
-var router = Router(routes);
-router.init();   
-
+console.log('App linked');
 
 ///////////////////////
 /// CRUD Restaurants//
@@ -28,15 +8,18 @@ var $restaurantsTable = $('tbody[data-attr="restaurants-table"]');
 
 // Create a new restaurant
 $('a[data-action="newRestaurant"]').on('click', function() {
+
+    var blankRestaurant = {
+        name: "new restaurant",
+        image_url: "http://warrentruckandtrailerinc.com/files/2014/07/placeholder.png",
+        rating: 0,
+        rating_count: 0
+    };
+
     $.ajax({
         method: "POST",
         url: "/restaurants",
-        data: JSON.stringify({
-            name: "new restaurant",
-            image_url: "http://warrentruckandtrailerinc.com/files/2014/07/placeholder.png",
-            rating: 0,
-            rating_count: 0
-        }),
+        data: JSON.stringify(blankRestaurant),
         contentType: 'application/json'
     }).done(function(data) {
         var html = Mustache.render(restaurantsTemplate, data);
@@ -52,7 +35,6 @@ $.ajax({
 }).done(function(restaurants) {
 
     var restaurantsEls = restaurants.map(function(restaurants) {
-
         return Mustache.render(restaurantsTemplate, restaurants);
     });
 
@@ -63,39 +45,38 @@ $.ajax({
     $('.tabular.menu .item').tab();
 
     // the select element for choosing a category
-    var $catSelect = $('select[data-action="getCategories"]')
+    var $catSelect = $('select[data-action="getCategories"]');
 
-     $catSelect.select2({
-         placeholder: "Select a category"
-     }); 
+    $catSelect.select2({
+        placeholder: "Select a category"
+    });
 
     // Select dropdown data for categories
     var $getCategories = $.ajax({
-      method: "GET",
-      contentType: 'application/json',  
-      url: '/categories' // wherever your data is actually coming from
+        method: "GET",
+        contentType: 'application/json',
+        url: '/categories' // get data for dropdown
     });
 
-    $getCategories.then(function (data) {
-      // the data comes back as an array of data objects
-      for (var d = 0; d < data.length; d++) {
-        var item = data[d];
-     
-        // Create the DOM option that is pre-selected by default
-        var option = new Option(item.text, item.id, true, true);
-        
-        // Append it to the select
-        $catSelect.append(option);
-      }
-     
-      // Update the selected options that are displayed
-      $catSelect.trigger('change');
-    }); 
+    $getCategories.then(function(data) {
+        // the data comes back as an array of data objects
+        for (var d = 0; d < data.length; d++) {
+            var item = data[d];
 
+            // Create the DOM option that is pre-selected by default
+            var option = new Option(item.text, item.id, true, true);
+
+            // Append it to the select
+            $catSelect.append(option);
+        }
+
+        // Update the selected options that are displayed
+        $catSelect.trigger('change');
+    });
 });
 
 // Update a restaurant 
-$restaurantsTable.on('blur','[contenteditable="true"]', function(e) {
+$restaurantsTable.on('blur', '[contenteditable="true"]', function(e) {
     var row = $(e.target).parents('tr');
     var id = row.attr('data-id');
 
@@ -107,7 +88,6 @@ $restaurantsTable.on('blur','[contenteditable="true"]', function(e) {
         name: name,
         description: description,
         location: location,
-        
     });
 
     $.ajax({
@@ -121,15 +101,15 @@ $restaurantsTable.on('blur','[contenteditable="true"]', function(e) {
 });
 
 // Update restaurant category
-$restaurantsTable.on('change','select[data-attr="category"]', function(e) {
+$restaurantsTable.on('change', 'select[data-attr="category"]', function(e) {
     var row = $(e.target).parents('tr');
     var id = row.attr('data-id');
-    
+
     var category = row.find('[data-attr="category"]').val();
 
-    console.log("category " +category);
-    console.log("row " +row);
-    console.log("id " +id);
+    console.log("category " + category);
+    console.log("row " + row);
+    console.log("id " + id);
 
     var payload = JSON.stringify({
         category: category
@@ -141,14 +121,12 @@ $restaurantsTable.on('change','select[data-attr="category"]', function(e) {
         data: payload,
         contentType: 'application/json'
     }).done(function() {
-         //alert('Saved! category'+payload); // make a nice alert div that can be dismmissed 
+        //alert('Saved! category'+payload); // make a nice alert div that can be dismmissed 
     });
-
 });
 
-
 // Update restaurant ratings
-$restaurantsTable.on('click','[data-attr="rating"]', function(e) {
+$restaurantsTable.on('click', '[data-attr="rating"]', function(e) {
     var row = $(e.target).parents('tr');
     var id = row.attr('data-id');
     var rating_count;
@@ -184,27 +162,6 @@ $restaurantsTable.on('click','[data-attr="rating"]', function(e) {
         });
 });
 
-function restaurantImageURL(id) {
-    var image_url_input = prompt("Please enter the image URL for this restaurant");
-
-    if (image_url_input !== null) {
-
-        var payload = JSON.stringify({
-            image_url: image_url_input
-        });
-
-        $.ajax({
-            method: "PATCH",
-            url: "/restaurants/" + id,
-            data: payload,
-            contentType: 'application/json'
-        }).done(function() {
-            // alert('Saved Image URL!'); // make a nice alert div that can be dismmissed 
-            location.reload();
-        });
-    }
-}
-
 // Delete a restaurant
 $restaurantsTable.on('click', '[data-action="delete"]', function(e) {
     var row = $(e.target).parents('tr');
@@ -217,7 +174,6 @@ $restaurantsTable.on('click', '[data-action="delete"]', function(e) {
         row.remove();
     });
 });
-
 
 ///////////////////////
 /// CRUD Categories//
@@ -249,7 +205,6 @@ $.ajax({
 }).done(function(categories) {
 
     var categoriesEls = categories.map(function(categories) {
-
         return Mustache.render(categoriesTemplate, categories);
     });
 
@@ -325,7 +280,6 @@ $.ajax({
 }).done(function(items) {
 
     var itemsEls = items.map(function(items) {
-
         return Mustache.render(menusTemplate, items);
     });
 
@@ -359,27 +313,6 @@ $itemsTable.on('blur', '[contenteditable="true"]', function(e) {
         // alert('Saved!'); // make a nice alert div that can be dismmissed 
     });
 });
-
-function menuImageURL(id) {
-    var image_url_input = prompt("Please enter the image URL for this menu item");
-
-    if (image_url_input !== null) {
-
-        var payload = JSON.stringify({
-            image_url: image_url_input
-        });
-
-        $.ajax({
-            method: "PATCH",
-            url: "/items/" + id,
-            data: payload,
-            contentType: 'application/json'
-        }).done(function() {
-            // alert('Saved Image URL!'); // make a nice alert div that can be dismmissed 
-            location.reload();
-        });
-    }
-}
 
 // Delete a menu item
 $itemsTable.on('click', '[data-action="delete"]', function(e) {

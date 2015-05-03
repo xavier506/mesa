@@ -120,7 +120,7 @@
            
          </td>
          <td>
-           <img class="ui small rounded image" src="{{image_url}}" alt="{{name}}" onclick="restaurantImageURL({{id}})" />
+           <img class="ui small rounded image" src="{{image_url}}" alt="{{name}}" onclick="methods.restaurantImageURL({{id}})" />
          </td>
          <td>
            <div data-attr='rating' class="ui rating" data-rating="{{rating}}"></div>
@@ -152,7 +152,7 @@
            {{restaurant_id}}
          </td>
           <td data-attr='image' contenteditable='true' >
-           <img class="ui small rounded image" src="{{image_url}}" alt="{{name}}" onclick="menuImageURL({{id}})" />
+           <img class="ui small rounded image" src="{{image_url}}" alt="{{name}}" onclick="methods.menuImageURL({{id}})" />
          </td>
          <td data-attr='name' contenteditable='true' >
            {{name}}
@@ -169,12 +169,17 @@
        </tr>
     </script>
 
+    <!-- Load Application Dependencies -->
     <script type="text/javascript" src="./bower_components/director/build/director.min.js"></script>
     <script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="./bower_components/mustache/mustache.min.js"></script>
     <script type="text/javascript" src="./bower_components/semantic-ui/dist/semantic.min.js"></script>
     <script type="text/javascript" src="./bower_components/underscore/underscore.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.js"></script>
-    <script type="text/javascript" src="./main.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.js"></script>
+
+    <!-- Load Application Files -->
+    <script type="text/javascript" src="./methods.js"></script>
+    <script type="text/javascript" src="./router.js"></script>
+    <script type="text/javascript" src="./app.js"></script>
    </body>
 </html>
