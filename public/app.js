@@ -4,14 +4,16 @@ console.log('App linked');
 /// CRUD Restaurants//
 /////////////////////  
 var restaurantsTemplate = $('script[data-id="restaurants-template"]').text();
-var $restaurantsTable = $('tbody[data-attr="restaurants-table"]');
+var $restaurantsCards = $('div[data-attr="restaurants-cards"]');
 
 // Create a new restaurant
 $('a[data-action="newRestaurant"]').on('click', function() {
 
     var blankRestaurant = {
-        name: "new restaurant",
+        name: "new restaurant title",
         image_url: "http://warrentruckandtrailerinc.com/files/2014/07/placeholder.png",
+        location: "Costa Rica",
+        description: "Enter description here... Bacon ipsum dolor amet sirloin ham prosciutto pork rump pastrami. Strip steak jowl biltong jerky porchetta shank pastrami cow pancetta corned beef pork chop. Cow alcatra swine beef pork belly sirloin. Sirloin shankle chicken brisket, filet mignon shank corned beef.",
         rating: 0,
         rating_count: 0
     };
@@ -24,7 +26,7 @@ $('a[data-action="newRestaurant"]').on('click', function() {
     }).done(function(data) {
         var html = Mustache.render(restaurantsTemplate, data);
 
-        $restaurantsTable.prepend(html);
+        $restaurantsCards.prepend(html);
     });
 });
 
@@ -38,7 +40,7 @@ $.ajax({
         return Mustache.render(restaurantsTemplate, restaurants);
     });
 
-    $restaurantsTable.append(restaurantsEls);
+    $restaurantsCards.append(restaurantsEls);
 
     $('.ui.rating').rating();
 
@@ -76,13 +78,14 @@ $.ajax({
 });
 
 // Update a restaurant 
-$restaurantsTable.on('blur', '[contenteditable="true"]', function(e) {
-    var row = $(e.target).parents('tr');
-    var id = row.attr('data-id');
+$restaurantsCards.on('blur', '[contenteditable="true"]', function(e) {
+    var card = $(e.target).parents('.card');
+    var id = card.attr('data-id');
+    console.log(id)
 
-    var name = row.find('[data-attr="name"]').text();
-    var description = row.find('[data-attr="description"]').text();
-    var location = row.find('[data-attr="location"]').text();
+    var name = card.find('[data-attr="name"]').text();
+    var description = card.find('[data-attr="description"]').text();
+    var location = card.find('[data-attr="location"]').text();
 
     var payload = JSON.stringify({
         name: name,
@@ -101,14 +104,14 @@ $restaurantsTable.on('blur', '[contenteditable="true"]', function(e) {
 });
 
 // Update restaurant category
-$restaurantsTable.on('change', 'select[data-attr="category"]', function(e) {
-    var row = $(e.target).parents('tr');
-    var id = row.attr('data-id');
+$restaurantsCards.on('change', 'select[data-attr="category"]', function(e) {
+    var card = $(e.target).parents('.card');
+    var id = card.attr('data-id');
 
-    var category = row.find('[data-attr="category"]').val();
+    var category = card.find('[data-attr="category"]').val();
 
     console.log("category " + category);
-    console.log("row " + row);
+    console.log("card " + card);
     console.log("id " + id);
 
     var payload = JSON.stringify({
@@ -126,9 +129,9 @@ $restaurantsTable.on('change', 'select[data-attr="category"]', function(e) {
 });
 
 // Update restaurant ratings
-$restaurantsTable.on('click', '[data-attr="rating"]', function(e) {
-    var row = $(e.target).parents('tr');
-    var id = row.attr('data-id');
+$restaurantsCards.on('click', '[data-attr="rating"]', function(e) {
+    var card = $(e.target).parents('.card');
+    var id = card.attr('data-id');
     var rating_count;
 
     $.ajax({
@@ -139,7 +142,7 @@ $restaurantsTable.on('click', '[data-attr="rating"]', function(e) {
     });
 
     $('.ui.rating')
-        .rating('setting', 'onRate', function(rating) {
+        .rating('setting','onRate', function(rating) {
 
             console.log("restaurant rated " + rating);
 
@@ -163,15 +166,15 @@ $restaurantsTable.on('click', '[data-attr="rating"]', function(e) {
 });
 
 // Delete a restaurant
-$restaurantsTable.on('click', '[data-action="delete"]', function(e) {
-    var row = $(e.target).parents('tr');
-    var id = row.attr('data-id');
+$restaurantsCards.on('click', '[data-action="delete"]', function(e) {
+    var card = $(e.target).parents('.card');
+    var id = card.attr('data-id');
 
     $.ajax({
         method: "DELETE",
         url: '/restaurants/' + id
     }).done(function() {
-        row.remove();
+        card.remove();
     });
 });
 
