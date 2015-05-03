@@ -46,6 +46,10 @@ $.ajax({
 
     $('.tabular.menu .item').tab();
 
+    $('.special.cards .image').dimmer({
+            on: 'hover'
+    });
+
     // the select element for choosing a category
     var $catSelect = $('select[data-action="getCategories"]');
 

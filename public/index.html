@@ -49,7 +49,7 @@
                 <a data-action="newRestaurant" class="ui label blue"><i class="plus icon"></i> Add new restaurant</a>
                 <br/> <br/>
                
-                 <div class="ui cards" data-attr="restaurants-cards"></div>
+                 <div class="ui special cards" data-attr="restaurants-cards"></div>
                     
             </div>
 
@@ -94,15 +94,23 @@
 
     <script type="text/template" data-id="restaurants-template">
       <div class="card" data-id='{{id}}'>
-        <div class="image">
-          <img src="{{image_url}}" alt="{{name}}" onclick="methods.restaurantImageURL({{id}})">
+        <div class="dimmable image">
+          <div class="ui dimmer">
+            <div class="content">
+              <div class="center">              
+                <div class="ui inverted button">View Menu</div>
+                <div onclick="methods.restaurantImageURL({{id}})" style="padding-top: 30px"><i class="photo icon inverted"></i>edit photo</div>
+              </div>
+            </div>
+          </div>
+          <img src="{{image_url}}" alt="{{name}}">
         </div>
         <div class="content">
           <div class="header" data-attr="name" contenteditable="true">{{name}}</div>
           <div class="meta">
-            <span data-attr="location" contenteditable="true">{{location}}</span>
+            <span data-attr="location" contenteditable="true"><b>{{location}}</b></span>
             <span data-attr="category" class="right floated">
-            category here {{category}}
+            <em>{{category}}</em>
             </span>
           </div>
           
