@@ -3,6 +3,7 @@
    <head>
       <title>Mesa - Restaurants Guide for Costa Rica</title>
       <link rel="stylesheet" type="text/css" href="/bower_components/semantic-ui/dist/semantic.css">
+      <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
    </head>
    <body>
       <div class="ui padded grid">
@@ -27,7 +28,8 @@
           
               <div class="ui tabular white menu">
                 <div class="item" data-tab="restaurants">View Restaurants</div>
-                <div class="item" data-tab="tab-name2">View Categories</div>
+                <div class="item" data-tab="menu-items">View All Menu Items</div>
+                <div class="item" data-tab="categories">View Categories</div>
               </div>
           
         </div>
@@ -43,7 +45,7 @@
             <div class="twelve wide row" id="content-container">
             <div class="ui tab" data-tab="restaurants">
                 <h2 class="ui header inverted">view restaurants</h2>
-                <a class="ui label blue"><i class="plus icon"></i> Add new restaurant</a>
+                <a data-action="newRestaurant" class="ui label blue"><i class="plus icon"></i> Add new restaurant</a>
                
                  <table class="ui table celled striped">
                     <thead>
@@ -55,25 +57,51 @@
                        <th>Rating</th>
                        <th>Delete</th>
                     </thead>
-                    <tbody>
+                    <tbody data-attr="restaurants-table">
                     </tbody>
                  </table>
             </div>
         
-            <div class="ui tab" data-tab="tab-name2">
-              <h1>hello world!</h1>
+            <div class="ui tab" data-tab="menu-items">
+                <h2 class="ui header inverted">view menu items</h2>
+                <a data-action="newMenuItem" class="ui label blue"><i class="plus icon"></i> Add new menu item</a>
+               
+                 <table class="ui table celled striped">
+                    <thead>
+                      <th>Restaurant ID</th>
+                       <th>Image</th>
+                       <th>Name</th>
+                       <th>Description</th>
+                       <th>Price</th>
+                       <th>Delete</th>
+                    </thead>
+                    <tbody data-attr="items-table">
+                    </tbody>
+                 </table>
             </div>
 
+            <div class="ui tab" data-tab="categories">
+              <h2 class="ui header inverted">view categories</h2>
+                <a data-action="newCategory" class="ui label blue"><i class="plus icon"></i> Add new category</a>
                
+                 <table class="ui table celled striped">
+                    <thead>
+                       <th>Name</th>
+                       <th>Description</th>
+                       <th>Delete</th>
+                    </thead>
+                    <tbody data-attr="categories-table">
+                    </tbody>
+                 </table>
+            </div>
+
             </div>
          </div>
          <div class="two wide column">
          </div>
       </div>
 
-
-
-    <script type="text/template" data-id="template">
+    <script type="text/template" data-id="restaurants-template">
        <tr data-id='{{id}}'>
          <td data-attr='name' contenteditable='true' >
            {{name}}
@@ -85,10 +113,14 @@
            <span data-attr='location' contenteditable='true'>{{location}}</span>
          </td>
          <td>
-           <span data-attr='category' contenteditable='true'>{{category}}</span>
+          <span data-attr='category'>{{category}}</span> 
+
+          <select data-action="getCategories" data-attr='category'>
+          </select>
+           
          </td>
          <td>
-           <img class="ui small rounded image" src="{{image_url}}" alt="{{name}}" onclick="getImageURL({{id}})" />
+           <img class="ui small rounded image" src="{{image_url}}" alt="{{name}}" onclick="restaurantImageURL({{id}})" />
          </td>
          <td>
            <div data-attr='rating' class="ui rating" data-rating="{{rating}}"></div>
@@ -99,10 +131,50 @@
          </td>
        </tr>
     </script>
+
+    <script type="text/template" data-id="categories-template">
+       <tr data-id='{{id}}'>
+         <td data-attr='text' contenteditable='true' >
+           {{text}}
+         </td>
+         <td>
+           <span data-attr='description' contenteditable='true'>{{description}}</span>
+         </td>
+         <td>
+           <i data-action="delete" class="trash icon"></i>
+         </td>
+       </tr>
+    </script>
+
+    <script type="text/template" data-id="items-template">
+       <tr data-id='{{id}}'>
+          <td data-attr='restaurant_id'>
+           {{restaurant_id}}
+         </td>
+          <td data-attr='image' contenteditable='true' >
+           <img class="ui small rounded image" src="{{image_url}}" alt="{{name}}" onclick="menuImageURL({{id}})" />
+         </td>
+         <td data-attr='name' contenteditable='true' >
+           {{name}}
+         </td>
+         <td>
+           <span data-attr='description' contenteditable='true'>{{description}}</span>
+         </td>
+         <td>
+           <span data-attr='price' contenteditable='true'>{{price}}</span>
+         </td>
+         <td>
+           <i data-action="delete" class="trash icon"></i>
+         </td>
+       </tr>
+    </script>
+
     <script type="text/javascript" src="./bower_components/director/build/director.min.js"></script>
     <script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="./bower_components/mustache/mustache.min.js"></script>
     <script type="text/javascript" src="./bower_components/semantic-ui/dist/semantic.min.js"></script>
+    <script type="text/javascript" src="./bower_components/underscore/underscore.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.js"></script>
     <script type="text/javascript" src="./main.js"></script>
    </body>
 </html>
