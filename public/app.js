@@ -1,20 +1,12 @@
 console.log('App linked');
-// Some animations to make the site more fun
-$(document).ready( function(){
-    $('#restaurants-link').addClass('animated fadeInDownBig');
-    $('#menus-link').addClass('animated fadeInDownBig');
-    $('#categories-link').addClass('animated fadeInDownBig');
-});
 
 ///////////////////////
 /// CRUD Restaurants//
 /////////////////////  
 var restaurantsTemplate = $('script[data-id="restaurants-template"]').text();
 var $restaurantsCards = $('div[data-attr="restaurants-cards"]');
-
 // Create a new restaurant
 $('a[data-action="newRestaurant"]').on('click', function() {
-
     var blankRestaurant = {
         name: "new restaurant title",
         image_url: "http://warrentruckandtrailerinc.com/files/2014/07/placeholder.png",
@@ -23,7 +15,6 @@ $('a[data-action="newRestaurant"]').on('click', function() {
         rating: 0,
         rating_count: 0
     };
-
     $.ajax({
         method: "POST",
         url: "/restaurants",
@@ -31,104 +22,86 @@ $('a[data-action="newRestaurant"]').on('click', function() {
         contentType: 'application/json'
     }).done(function(data) {
         var html = Mustache.render(restaurantsTemplate, data);
-
         $restaurantsCards.prepend(html);
     });
 });
-
 // Update a restaurant 
 $restaurantsCards.on('blur', '[contenteditable="true"]', function(e) {
     var card = $(e.target).parents('.card');
     var id = card.attr('data-id');
     console.log(id)
-
     var name = card.find('[data-attr="name"]').text();
     var description = card.find('[data-attr="description"]').text();
     var location = card.find('[data-attr="location"]').text();
-
     var payload = JSON.stringify({
         name: name,
         description: description,
         location: location,
     });
-
     $.ajax({
         method: "PUT",
         url: "/restaurants/" + id,
         data: payload,
         contentType: 'application/json'
     }).done(function() {
-        // alert('Saved!'); // make a nice alert div that can be dismmissed 
+        // alert('Saved!'); // make a nice alert div that can be dismmissed
     });
 });
-
 // Update restaurant category
 $restaurantsCards.on('change', 'select[data-attr="category"]', function(e) {
     var card = $(e.target).parents('.card');
     var id = card.attr('data-id');
-
     var category = card.find('[data-attr="category"]').val();
-
     console.log("category " + category);
     console.log("card " + card);
     console.log("id " + id);
-
     var payload = JSON.stringify({
         category: category
     });
-
     $.ajax({
         method: "PATCH",
         url: "/restaurants/" + id,
         data: payload,
         contentType: 'application/json'
     }).done(function() {
-        //alert('Saved! category'+payload); // make a nice alert div that can be dismmissed 
+        //alert('Saved! category'+payload); // make a nice alert div that can be dismmissed
     });
 });
-
+// STRUGGLING HERE
 // Update restaurant ratings
 $restaurantsCards.on('click', '[data-attr="rating"]', function(e) {
     var card = $(e.target).parents('.card');
     var id = card.attr('data-id');
     var rating_count;
-
     $.ajax({
         method: "GET",
         url: "/restaurants/" + id
     }).done(function(restaurant) {
         rating_count = restaurant.rating_count;
+
     });
-
-    $('.ui.rating')
-        .rating('setting','onRate', function(rating) {
-
-            console.log("restaurant rated " + rating);
-
-            rating_count++;
-
-            var payload = JSON.stringify({
-                rating: rating,
-                rating_count: rating_count
-            });
-
-            $.ajax({
-                method: "PATCH",
-                url: "/restaurants/" + id,
-                data: payload,
-                contentType: 'application/json'
-            }).done(function() {
-                //alert('Saved rating!'); // make a nice alert div that can be dismmissed 
-                location.reload();
-            });
+    $('.ui.rating').rating('setting', 'onRate', function(rating) {
+        console.log("restaurant rated " + rating);
+        rating_count++;
+        var payload = JSON.stringify({
+            rating: rating,
+            rating_count: rating_count
         });
+        $.ajax({
+            method: "PATCH",
+            url: "/restaurants/" + id,
+            data: payload,
+            contentType: 'application/json'
+        }).done(function() {
+            //alert('Saved rating!'); // make a nice alert div that can be dismmissed
+            location.reload(); 
+        });
+    });
 });
-
 // Delete a restaurant
 $restaurantsCards.on('click', '[data-action="delete"]', function(e) {
     var card = $(e.target).parents('.card');
     var id = card.attr('data-id');
-
     $.ajax({
         method: "DELETE",
         url: '/restaurants/' + id
@@ -142,7 +115,6 @@ $restaurantsCards.on('click', '[data-action="delete"]', function(e) {
 /////////////////////  
 var categoriesTemplate = $('script[data-id="categories-template"]').text();
 var $categoriesTable = $('tbody[data-attr="categories-table"]');
-
 // Create a new category
 $('a[data-action="newCategory"]').on('click', function() {
     $.ajax({
@@ -155,39 +127,32 @@ $('a[data-action="newCategory"]').on('click', function() {
         contentType: 'application/json'
     }).done(function(data) {
         var html = Mustache.render(categoriesTemplate, data);
-
         $categoriesTable.prepend(html);
     });
 });
-
 // Update a category
 $categoriesTable.on('blur', '[contenteditable="true"]', function(e) {
     var row = $(e.target).parents('tr');
     var id = row.attr('data-id');
-
     var text = row.find('[data-attr="text"]').text();
     var description = row.find('[data-attr="description"]').text();
-
     var payload = JSON.stringify({
         text: text,
         description: description,
     });
-
     $.ajax({
         method: "PUT",
         url: "/categories/" + id,
         data: payload,
         contentType: 'application/json'
     }).done(function() {
-        // alert('Saved!'); // make a nice alert div that can be dismmissed 
+        // alert('Saved!'); // make a nice alert div that can be dismmissed
     });
 });
-
 // Delete a category
 $categoriesTable.on('click', '[data-action="delete"]', function(e) {
     var row = $(e.target).parents('tr');
     var id = row.attr('data-id');
-
     $.ajax({
         method: "DELETE",
         url: '/categories/' + id
@@ -201,7 +166,6 @@ $categoriesTable.on('click', '[data-action="delete"]', function(e) {
 /////////////////////  
 var menusTemplate = $('script[data-id="items-template"]').text();
 var $itemsTable = $('tbody[data-attr="items-table"]');
-
 // Create a new menu item
 $('a[data-action="newMenuItem"]').on('click', function() {
     $.ajax({
@@ -214,26 +178,21 @@ $('a[data-action="newMenuItem"]').on('click', function() {
         contentType: 'application/json'
     }).done(function(data) {
         var html = Mustache.render(menusTemplate, data);
-
         $itemsTable.prepend(html);
     });
 });
-
 // Update a menu item
 $itemsTable.on('blur', '[contenteditable="true"]', function(e) {
     var row = $(e.target).parents('tr');
     var id = row.attr('data-id');
-
     var name = row.find('[data-attr="name"]').text();
     var description = row.find('[data-attr="description"]').text();
     var price = row.find('[data-attr="price"]').text();
-
     var payload = JSON.stringify({
         name: name,
         description: description,
         price: price
     });
-
     $.ajax({
         method: "PUT",
         url: "/items/" + id,
@@ -243,16 +202,28 @@ $itemsTable.on('blur', '[contenteditable="true"]', function(e) {
         // alert('Saved!'); // make a nice alert div that can be dismmissed 
     });
 });
-
 // Delete a menu item
 $itemsTable.on('click', '[data-action="delete"]', function(e) {
     var row = $(e.target).parents('tr');
     var id = row.attr('data-id');
-
     $.ajax({
         method: "DELETE",
         url: '/items/' + id
     }).done(function() {
         row.remove();
     });
+});
+
+////////////////////////
+/// CSS & ANIMATIONS //
+//////////////////////  
+$(document).ready(function() {
+    $('#restaurants-link').addClass('animated fadeInDownBig');
+    $('#menus-link').addClass('animated fadeInDownBig');
+    $('#categories-link').addClass('animated fadeInDownBig');
+    $('#logo').addClass('animated flipInY');
+    var url = window.location.href;
+    $('.mainMenu a').filter(function() {
+        return this.href == url;
+    }).addClass('active');
 });

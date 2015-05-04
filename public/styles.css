@@ -1,0 +1,51 @@
+.mainMenu{
+  text-align: center;
+}
+.mainMenu a {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  font-size:16pt;
+  line-height: 45px;
+  color:black;
+
+  position: relative;
+  color: #000;
+  text-decoration: none;
+}
+
+.mainMenu a:hover{
+  color: #000;
+}
+
+.mainMenu a:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  bottom: -5px;
+  left: 0;
+  
+  background-color: #f79720;
+  visibility: hidden;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.mainMenu a:hover:before {
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+.mainMenu a:active{
+  color: #e06e26;
+}
+
+.mainMenu a .active {
+    background-color: pink;
+    color:magenta;
+    text-transform: capitalize;
+    
+}

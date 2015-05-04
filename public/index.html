@@ -4,14 +4,16 @@
       <title>Mesa - Restaurants Guide for Costa Rica</title>
       <link rel="stylesheet" type="text/css" href="/bower_components/semantic-ui/dist/semantic.css">
       <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
-      <link rel="stylesheet" href="/bower_components/animate.css/animate.min.css">
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+      <link rel="stylesheet" href="./bower_components/animate.css/animate.min.css">
+      <link rel="stylesheet" href="./styles.css">
    </head>
    <body>
       <div class="ui padded grid">
       <div class="sixteen wide white row">
          <div class="two wide column white">
          <a href="/">
-         <img src="/images/logos/mesa-logo-thumb.png" />
+         <img id="logo" src="/images/logos/mesa-logo-thumb.png" />
          </a>
          </div>
          <div class="fourteen wide column">
@@ -25,20 +27,14 @@
         <div class="two wide column">
         </div>
 
-        <div class="four wide white column">
-        <center>
-        <a id="restaurants-link" href="/#/restaurants">View Restaurants</a>
-        </center>
+        <div class="four wide white column mainMenu">
+        <a id="restaurants-link" href="/#/restaurants">view restaurants</a>
         </div>
-        <div class="four wide white column">
-        <center>
-        <a id="menus-link" href="/#/menus">View All Menu Items</a>
-        </center>
+        <div class="four wide white column mainMenu">
+        <a id="menus-link" href="/#/menus">view all menu items</a>
         </div>
-        <div class="four wide white column">
-        <center>
-        <a id="categories-link" href="/#/categories">View Categories</a>
-        </center>
+        <div class="four wide white column mainMenu">
+        <a id="categories-link" href="/#/categories">view categories</a>
         </div>
 
         <div class="two wide column">
@@ -57,11 +53,22 @@
 
     <script type="text/template" data-id="restaurants-template">
       <div class="card" data-id='{{id}}'>
+        <div class="ui modal standard menu-items">
+          <i class="close icon"></i>
+          <div class="header">
+            {{name}} Menu Items 
+          </div>
+          <div class="content">
+            
+          </div>
+          <div class="actions">
+          </div>
+        </div>
         <div class="dimmable image">
           <div class="ui dimmer">
             <div class="content">
               <div class="center">              
-                <div class="ui inverted button">View Menu</div>
+                <div class="ui inverted button view-menu">View Menu</div>
                 <div onclick="methods.restaurantImageURL({{id}})" style="padding-top: 30px"><i class="photo icon inverted"></i>edit photo</div>
               </div>
             </div>
@@ -91,6 +98,7 @@
           </span>
         </div>
       </div>
+
     </script>
 
     <script type="text/template" data-id="categories-template">
