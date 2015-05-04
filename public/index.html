@@ -53,17 +53,35 @@
 
     <script type="text/template" data-id="restaurants-template">
       <div class="card" data-id='{{id}}'>
-        <div class="ui modal standard menu-items">
+
+        <div class="ui modal long menu-items">
           <i class="close icon"></i>
           <div class="header">
             {{name}} Menu Items 
           </div>
-          <div class="content">
-            
-          </div>
-          <div class="actions">
+          <div class="content display-menu-items" data-id='{{id}}'>
           </div>
         </div>
+
+
+          <div class="ui modal small select-category"  data-id='{{id}}'>
+            <i class="close icon"></i>
+            <div class="header">
+              Select Category for {{name}} 
+            </div>
+            
+            <div class="content select-category" data-attr='select-category' data-id='{{id}}'>
+              <h4>Select the category that best describes this restaurant.</h4>
+               <select class="ui search dropdown" data-action="getCategories" data-attr='category-selector'><option value="" disabled selected>Select a category</option></select>
+
+            </div>
+
+            <div class="actions">
+              <div class="ui button red">Cancel</div>
+              <div data-action="save_category" class="ui button primary" onclick="methods.updateCategory()">OK</div>
+            </div>
+          </div>
+
         <div class="dimmable image">
           <div class="ui dimmer">
             <div class="content">
@@ -83,7 +101,6 @@
             <em>{{category}}</em>
             </span>
           </div>
-          
           <div data-attr="description" class="description" contenteditable="true">
             {{description}}
           </div>
@@ -117,7 +134,7 @@
 
     <script type="text/template" data-id="items-template">
        <tr data-id='{{id}}'>
-          <td data-attr='restaurant_id'>
+          <td data-attr='restaurant_id' contenteditable='true'>
            {{restaurant_id}}
          </td>
           <td data-attr='image' contenteditable='true' >
@@ -130,7 +147,7 @@
            <span data-attr='description' contenteditable='true'>{{description}}</span>
          </td>
          <td>
-           <span data-attr='price' contenteditable='true'>&#36; {{price}}</span>
+           <span data-attr='price' contenteditable='true'><i class="dollar icon"></i> {{price}}</span>
          </td>
          <td>
            <i data-action="delete" class="trash icon"></i>

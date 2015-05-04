@@ -5,6 +5,7 @@ console.log('App linked');
 /////////////////////  
 var restaurantsTemplate = $('script[data-id="restaurants-template"]').text();
 var $restaurantsCards = $('div[data-attr="restaurants-cards"]');
+
 // Create a new restaurant
 $('a[data-action="newRestaurant"]').on('click', function() {
     var blankRestaurant = {
@@ -30,9 +31,9 @@ $restaurantsCards.on('blur', '[contenteditable="true"]', function(e) {
     var card = $(e.target).parents('.card');
     var id = card.attr('data-id');
     console.log(id)
-    var name = card.find('[data-attr="name"]').text();
-    var description = card.find('[data-attr="description"]').text();
-    var location = card.find('[data-attr="location"]').text();
+    var name = card.find('[data-attr="name"]').text().trim();
+    var description = card.find('[data-attr="description"]').text().trim();
+    var location = card.find('[data-attr="location"]').text().trim();
     var payload = JSON.stringify({
         name: name,
         description: description,
@@ -47,26 +48,7 @@ $restaurantsCards.on('blur', '[contenteditable="true"]', function(e) {
         // alert('Saved!'); // make a nice alert div that can be dismmissed
     });
 });
-// Update restaurant category
-$restaurantsCards.on('change', 'select[data-attr="category"]', function(e) {
-    var card = $(e.target).parents('.card');
-    var id = card.attr('data-id');
-    var category = card.find('[data-attr="category"]').val();
-    console.log("category " + category);
-    console.log("card " + card);
-    console.log("id " + id);
-    var payload = JSON.stringify({
-        category: category
-    });
-    $.ajax({
-        method: "PATCH",
-        url: "/restaurants/" + id,
-        data: payload,
-        contentType: 'application/json'
-    }).done(function() {
-        //alert('Saved! category'+payload); // make a nice alert div that can be dismmissed
-    });
-});
+
 // STRUGGLING HERE
 // Update restaurant ratings
 $restaurantsCards.on('click', '[data-attr="rating"]', function(e) {
@@ -185,13 +167,15 @@ $('a[data-action="newMenuItem"]').on('click', function() {
 $itemsTable.on('blur', '[contenteditable="true"]', function(e) {
     var row = $(e.target).parents('tr');
     var id = row.attr('data-id');
-    var name = row.find('[data-attr="name"]').text();
-    var description = row.find('[data-attr="description"]').text();
-    var price = row.find('[data-attr="price"]').text();
+    var name = row.find('[data-attr="name"]').text().trim();
+    var description = row.find('[data-attr="description"]').text().trim();
+    var price = row.find('[data-attr="price"]').text().trim();
+    var restaurant_id = row.find('[data-attr="restaurant_id"]').text().trim();
     var payload = JSON.stringify({
         name: name,
         description: description,
-        price: price
+        price: price,
+        restaurant_id: restaurant_id
     });
     $.ajax({
         method: "PUT",
