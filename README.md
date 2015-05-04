@@ -1,13 +1,13 @@
 ![Mesa Costa Rica Logo](./docs/mesa-logo-thumb.png)
 #mesa.cr
 
-Restaurants guide of Costa Rica
+A culinary guide of Costa Rica
 
 live demo URL: http://xavierf.software:3000
 
 ##Project Description
 
-Mesa is a single page APP developed to keep track of restaurants.
+Mesa is a single page APP developed to keep track of restaurants, their cuisine types, and menu items.
 
 
 ## Wireframes

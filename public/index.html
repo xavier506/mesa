@@ -4,6 +4,7 @@
       <title>Mesa - Restaurants Guide for Costa Rica</title>
       <link rel="stylesheet" type="text/css" href="/bower_components/semantic-ui/dist/semantic.css">
       <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+      <link rel="stylesheet" href="/bower_components/animate.css/animate.min.css">
    </head>
    <body>
       <div class="ui padded grid">
@@ -20,18 +21,24 @@
          </div>
       </div>
 
-      <div class="sixteen wide row  white">
+      <div class="sixteen wide row white">
         <div class="two wide column">
         </div>
 
-        <div class="twelve wide white column">
-          
-              <div class="ui tabular white menu">
-                <div class="item" data-tab="restaurants">View Restaurants</div>
-                <div class="item" data-tab="menu-items">View All Menu Items</div>
-                <div class="item" data-tab="categories">View Categories</div>
-              </div>
-          
+        <div class="four wide white column">
+        <center>
+        <a id="restaurants-link" href="/#/restaurants">View Restaurants</a>
+        </center>
+        </div>
+        <div class="four wide white column">
+        <center>
+        <a id="menus-link" href="/#/menus">View All Menu Items</a>
+        </center>
+        </div>
+        <div class="four wide white column">
+        <center>
+        <a id="categories-link" href="/#/categories">View Categories</a>
+        </center>
         </div>
 
         <div class="two wide column">
@@ -39,57 +46,13 @@
       </div>
 
       <div class="sixteen wide row gray">
-         <div class="two wide column">
-         </div>
+         <div class="two wide column"></div>
          <div class="twelve wide column" >
-            <div class="twelve wide row" id="content-container">
 
-            <div class="ui tab" data-tab="restaurants">
-                <h2 class="ui header">view restaurants</h2>
-                <a data-action="newRestaurant" class="ui label blue"><i class="plus icon"></i> Add new restaurant</a>
-                <br/> <br/>
-               
-                 <div class="ui special cards" data-attr="restaurants-cards"></div>
-                    
-            </div>
+          <div class="twelve wide row" id="content-container"></div>
 
-            <div class="ui tab" data-tab="menu-items">
-                <h2 class="ui header">view menu items</h2>
-                <a data-action="newMenuItem" class="ui label blue"><i class="plus icon"></i> Add new menu item</a>
-               
-                 <table class="ui table celled striped">
-                    <thead>
-                      <th>Restaurant ID</th>
-                       <th>Image</th>
-                       <th>Name</th>
-                       <th>Description</th>
-                       <th>Price</th>
-                       <th>Delete</th>
-                    </thead>
-                    <tbody data-attr="items-table">
-                    </tbody>
-                 </table>
-            </div>
-
-            <div class="ui tab" data-tab="categories">
-              <h2 class="ui header">view categories</h2>
-                <a data-action="newCategory" class="ui label blue"><i class="plus icon"></i> Add new category</a>
-               
-                 <table class="ui table celled striped">
-                    <thead>
-                       <th>Name</th>
-                       <th>Description</th>
-                       <th>Delete</th>
-                    </thead>
-                    <tbody data-attr="categories-table">
-                    </tbody>
-                 </table>
-            </div>
-
-            </div>
          </div>
-         <div class="two wide column">
-         </div>
+         <div class="two wide column"></div>
       </div>
 
     <script type="text/template" data-id="restaurants-template">
@@ -159,7 +122,7 @@
            <span data-attr='description' contenteditable='true'>{{description}}</span>
          </td>
          <td>
-           <span data-attr='price' contenteditable='true'>{{price}}</span>
+           <span data-attr='price' contenteditable='true'>&#36; {{price}}</span>
          </td>
          <td>
            <i data-action="delete" class="trash icon"></i>

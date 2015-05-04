@@ -1,4 +1,10 @@
 console.log('App linked');
+// Some animations to make the site more fun
+$(document).ready( function(){
+    $('#restaurants-link').addClass('animated fadeInDownBig');
+    $('#menus-link').addClass('animated fadeInDownBig');
+    $('#categories-link').addClass('animated fadeInDownBig');
+});
 
 ///////////////////////
 /// CRUD Restaurants//
@@ -27,57 +33,6 @@ $('a[data-action="newRestaurant"]').on('click', function() {
         var html = Mustache.render(restaurantsTemplate, data);
 
         $restaurantsCards.prepend(html);
-    });
-});
-
-// Read all restaurants
-$.ajax({
-    method: "GET",
-    url: "/restaurants"
-}).done(function(restaurants) {
-
-    var restaurantsEls = restaurants.map(function(restaurants) {
-        return Mustache.render(restaurantsTemplate, restaurants);
-    });
-
-    $restaurantsCards.append(restaurantsEls);
-
-    $('.ui.rating').rating();
-
-    $('.tabular.menu .item').tab();
-
-    $('.special.cards .image').dimmer({
-            on: 'hover'
-    });
-
-    // the select element for choosing a category
-    var $catSelect = $('select[data-action="getCategories"]');
-
-    $catSelect.select2({
-        placeholder: "Select a category"
-    });
-
-    // Select dropdown data for categories
-    var $getCategories = $.ajax({
-        method: "GET",
-        contentType: 'application/json',
-        url: '/categories' // get data for dropdown
-    });
-
-    $getCategories.then(function(data) {
-        // the data comes back as an array of data objects
-        for (var d = 0; d < data.length; d++) {
-            var item = data[d];
-
-            // Create the DOM option that is pre-selected by default
-            var option = new Option(item.text, item.id, true, true);
-
-            // Append it to the select
-            $catSelect.append(option);
-        }
-
-        // Update the selected options that are displayed
-        $catSelect.trigger('change');
     });
 });
 
@@ -205,22 +160,6 @@ $('a[data-action="newCategory"]').on('click', function() {
     });
 });
 
-// Read all categories
-$.ajax({
-    method: "GET",
-    url: "/categories"
-}).done(function(categories) {
-
-    var categoriesEls = categories.map(function(categories) {
-        return Mustache.render(categoriesTemplate, categories);
-    });
-
-    $categoriesTable.append(categoriesEls);
-
-    $('.tabular.menu .item').tab();
-
-});
-
 // Update a category
 $categoriesTable.on('blur', '[contenteditable="true"]', function(e) {
     var row = $(e.target).parents('tr');
@@ -263,7 +202,7 @@ $categoriesTable.on('click', '[data-action="delete"]', function(e) {
 var menusTemplate = $('script[data-id="items-template"]').text();
 var $itemsTable = $('tbody[data-attr="items-table"]');
 
-// Create a new category
+// Create a new menu item
 $('a[data-action="newMenuItem"]').on('click', function() {
     $.ajax({
         method: "POST",
@@ -278,22 +217,6 @@ $('a[data-action="newMenuItem"]').on('click', function() {
 
         $itemsTable.prepend(html);
     });
-});
-
-// Read all menu items
-$.ajax({
-    method: "GET",
-    url: "/items"
-}).done(function(items) {
-
-    var itemsEls = items.map(function(items) {
-        return Mustache.render(menusTemplate, items);
-    });
-
-    $itemsTable.append(itemsEls);
-
-    $('.tabular.menu .item').tab();
-
 });
 
 // Update a menu item

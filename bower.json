@@ -7,6 +7,7 @@
     "mustache": "~2.0.0",
     "director": "~1.2.8",
     "underscore": "~1.8.3",
-    "typeahead.js": "~0.11.1"
+    "typeahead.js": "~0.11.1",
+    "animateCSS": "~1.2.1"
   }
 }
