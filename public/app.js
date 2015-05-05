@@ -5,8 +5,7 @@ console.log('App linked');
 /////////////////////  
 var restaurantsTemplate = $('script[data-id="restaurants-template"]').text();
 var $restaurantsCards = $('div[data-attr="restaurants-cards"]');
-
-// Create a new restaurant
+// Create a new r;estaurant
 $('a[data-action="newRestaurant"]').on('click', function() {
     var blankRestaurant = {
         name: "new restaurant title",
@@ -45,7 +44,7 @@ $restaurantsCards.on('blur', '[contenteditable="true"]', function(e) {
         data: payload,
         contentType: 'application/json'
     }).done(function() {
-        // alert('Saved!'); // make a nice alert div that can be dismmissed
+        // alert('Saved!'); // remind me to make a nice alert div that can be dismmissed
     });
 });
 
@@ -76,7 +75,7 @@ $restaurantsCards.on('click', '[data-attr="rating"]', function(e) {
             contentType: 'application/json'
         }).done(function() {
             //alert('Saved rating!'); // make a nice alert div that can be dismmissed
-            location.reload(); 
+            location.reload();
         });
     });
 });
@@ -202,12 +201,17 @@ $itemsTable.on('click', '[data-action="delete"]', function(e) {
 /// CSS & ANIMATIONS //
 //////////////////////  
 $(document).ready(function() {
+    console.log('document ready !');
     $('#restaurants-link').addClass('animated fadeInDownBig');
     $('#menus-link').addClass('animated fadeInDownBig');
     $('#categories-link').addClass('animated fadeInDownBig');
     $('#logo').addClass('animated flipInY');
+    $('.hola').addClass('animated lightSpeedIn');
+
+    // an attempt at adding a class active to the navigation (didnt work):
     var url = window.location.href;
     $('.mainMenu a').filter(function() {
         return this.href == url;
     }).addClass('active');
-});
+
+}); //  end document ready

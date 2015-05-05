@@ -49,3 +49,12 @@
     text-transform: capitalize;
     
 }
+
+.hola{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  font-size:64pt;
+  color: #f79720;
+  line-height: 200px;
+  text-align: center;
+}
