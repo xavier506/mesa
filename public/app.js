@@ -169,7 +169,7 @@ $itemsTable.on('blur', '[contenteditable="true"]', function(e) {
     var name = row.find('[data-attr="name"]').text().trim();
     var description = row.find('[data-attr="description"]').text().trim();
     var price = row.find('[data-attr="price"]').text().trim();
-    var restaurant_id = row.find('[data-attr="restaurant_id"]').text().trim();
+    //var restaurant_id = row.find('[data-attr="restaurant_id"]').text().trim();
     var payload = JSON.stringify({
         name: name,
         description: description,
