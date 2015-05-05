@@ -57,8 +57,6 @@ var methods = {
 
                 });
 
-                /// IM STRUGGLING HERE CATEGORIES ARENT BEING PERSISTED AND DONT HAVE THE APROPIATE IDS 
-                // the select element for choosing a category
                 $('span[data-attr="category"]').on('click', function(e) {
                     var card = $(e.target).parents('.card');
                     var id = card.attr('data-id');
@@ -80,7 +78,7 @@ var methods = {
                             var item = data[d];
                             // Create the DOM option that is pre-selected by default
                             var option = new Option(item.text,
-                                item.id, true, true);
+                                item.text, false, false);
                             // Append it to the select
                             $catSelect.append(option);
                         }
@@ -125,6 +123,8 @@ var methods = {
             method: "GET",
             url: "/items"
         }).done(function(items) {
+          
+//// THIS IS AN UNSOLVED ISSUE / FIND CORRESPONDING NAME FR EACH ID . ILL TRY USING LOADASH  OR UNDERSCORE LATER
           //console.log(items);
 
         //    $.ajax({
@@ -148,8 +148,6 @@ var methods = {
         //     }
         //   })
         // })
-    
-        
 
             var itemsEls = items.map(function(items) {
                 return Mustache.render(menusTemplate,
@@ -157,6 +155,38 @@ var methods = {
             });
             $itemsTable.append(itemsEls);
         });
+
+        // MAKE A DROPDOWN WITH THE RESTAURANTS TO PICK FROM AND ASSIGN TO EACH MENU ITEM
+        var $restaurantsSelect = $("select[data-attr='restaurant-selector']");
+
+                    $restaurantsSelect.dropdown();
+
+                    var $getRestaurants = $.ajax({
+                        method: "GET",
+                        contentType: 'application/json',
+                        url: '/restaurants' // get data for dropdown
+                    });
+                    $getRestaurants.then(function(data) {
+
+                        // the data comes back as an array of data objects
+                        for (var d = 0; d < data.length; d++) {
+                            var item = data[d];
+                            console.log(item.name);
+                            console.log(item.id);
+                            // Create the DOM option that is pre-selected by default
+                            var option = new Option(item.name,
+                                item.name, false, false);
+                            // Append it to the select
+                            $restaurantsSelect.append(option);
+                        }
+                        // Update the selected options that are displayed
+                        //$catSelect.trigger('change');
+                    });
+
+
+
+
+
     },
     // about page 
     about: function() {

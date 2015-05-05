@@ -134,8 +134,9 @@
 
     <script type="text/template" data-id="items-template">
        <tr data-id='{{id}}'>
-          <td data-attr='restaurant_id' contenteditable='true'>
-           {{restaurant_id}}
+          <td data-attr='restaurant_id'>
+  
+           <select class="ui search dropdown" id='restaurant-selector'><option value="" disabled selected>Select a restaurant</option></select>
          </td>
           <td data-attr='image' contenteditable='true' >
            <img class="ui small rounded image" src="{{image_url}}" alt="{{name}}" onclick="methods.menuImageURL({{id}})" />
